@@ -51,10 +51,11 @@ class HIVDataset(Dataset):
                                 os.path.join(self.processed_dir, 
                                             f'data_{index}.pt'))
                 # i += 1
-
+    
     def _get_labels(self, label):
         label = np.asarray(label)
         return torch.tensor(label, dtype=torch.int)
+
 
     def len(self):
         return self.data.shape[0]
