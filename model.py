@@ -7,9 +7,8 @@ from torch_geometric.nn import global_max_pool as gmp, global_mean_pool as gap
 
 
 class GNN(torch.nn.Module):
-    def __init__(self, input_dim, embedding_size, output_dim, num_layers, task='node'):
+    def __init__(self, input_dim, embedding_size, output_dim, task='node'):
         super(GNN, self).__init__()
-        self.num_layers = num_layers
 
         # GNN Layers
         self.conv1 = GATConv(input_dim, embedding_size, heads=3)

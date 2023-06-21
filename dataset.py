@@ -21,17 +21,18 @@ class HIVDataset(Dataset):
     @property
     def processed_file_names(self):
         self.data = pd.read_csv(self.raw_paths[0]).reset_index()
-
+        
         if self.test:
             return [f'data_test_{i}.pt' for i in list(self.data.index)]
         else:
-            return [f'data_{i}.pt' for i in list(self.data.index)]
+            return [f'data_{i}.pt' for i in [0]]#list(self.data.index)]
 
     def download(self):
         pass
 
     def process(self):
         self.data = pd.read_csv(self.raw_paths[0])
+        print(self.raw_paths[0])
         i = 0
         for index, mol in tqdm(self.data.iterrows(), total=self.data.shape[0]):
             # if i == 0:
@@ -47,7 +48,14 @@ class HIVDataset(Dataset):
                             y=graph_labels,
                             smiles=mol["smiles"])
                 
-                torch.save(data, os.path.join(self.processed_dir, f'data_{index}.pt'))
+                if self.test:
+                    torch.save(data, 
+                        os.path.join(self.processed_dir, 
+                                    f'data_test_{index}.pt'))
+                else:
+                    torch.save(data, 
+                        os.path.join(self.processed_dir, 
+                                    f'data_{index}.pt'))
                 # i += 1
 
     def _get_node_features(self, mol):
@@ -96,8 +104,14 @@ class HIVDataset(Dataset):
         return self.data.shape[0]
 
     def get(self, idx):
-        data = torch.load(osp.join(self.processed_dir, f'data_{idx}.pt'))
+        if self.test:
+            data = torch.load(os.path.join(self.processed_dir, 
+                                 f'data_test_{idx}.pt'))
+        else:
+            data = torch.load(os.path.join(self.processed_dir, 
+                                 f'data_{idx}.pt'))        
         return data
     
 if __name__ == "__main__":
-    dataset = HIVDataset(root="./data", filename="HIV_train_oversampled.csv")
+    dataset = HIVDataset(root="./data", filename="HIV_train.csv", test=True)
+    # dataset = HIVDataset(root="./data", filename="HIV_test.csv", test=True)
