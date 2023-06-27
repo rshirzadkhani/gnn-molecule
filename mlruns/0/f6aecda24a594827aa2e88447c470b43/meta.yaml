@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/f6aecda24a594827aa2e88447c470b43/artifacts
+end_time: 1687878818557
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f6aecda24a594827aa2e88447c470b43
+run_name: melodic-doe-760
+run_uuid: f6aecda24a594827aa2e88447c470b43
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687878817103
+status: 4
+tags: []
+user_id: rshirzad

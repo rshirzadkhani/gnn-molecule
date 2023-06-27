@@ -14,22 +14,22 @@ class GNN(torch.nn.Module):
         self.conv1 = GATConv(input_dim, embedding_size, heads=3)
         self.transform1 = nn.Linear(embedding_size*3, embedding_size)
         self.pooling1 = TopKPooling(embedding_size, ratio=0.8)
-        self.conv2 = GATConv(input_dim, embedding_size, heads=3)
+        self.conv2 = GATConv(embedding_size, embedding_size, heads=3)
         self.transform2 = nn.Linear(embedding_size*3, embedding_size)
         self.pooling2 = TopKPooling(embedding_size, ratio=0.5)
-        self.conv3 = GATConv(input_dim, embedding_size, heads=3)
+        self.conv3 = GATConv(embedding_size, embedding_size, heads=3)
         self.transform3 = nn.Linear(embedding_size*3, embedding_size)
         self.pooling3 = TopKPooling(embedding_size, ratio=0.2)
 
         # Linear layers:
-        self.linear1 = nn.Linear(embedding_size, 1024)
+        self.linear1 = nn.Linear(embedding_size * 2, 1024)
         self.linear2 = nn.Linear(1024, output_dim)
 
     def forward(self, x, edge_index, edge_attr, batch_index):
         x = self.conv1(x, edge_index)
         x = self.transform1(x)
 
-        x, edge_index, edge_attr, batch_index, _ = self.pooling1(x,
+        x, edge_index, edge_attr, batch_index, _, _ = self.pooling1(x,
                                                                  edge_index,
                                                                  None, 
                                                                  batch_index)
@@ -38,7 +38,7 @@ class GNN(torch.nn.Module):
         x = self.conv2(x, edge_index)
         x = self.transform2(x)
 
-        x, edge_index, edge_attr, batch_index, _ = self.pooling2(x,
+        x, edge_index, edge_attr, batch_index, _, _ = self.pooling2(x,
                                                                  edge_index,
                                                                  None, 
                                                                  batch_index)
@@ -47,7 +47,7 @@ class GNN(torch.nn.Module):
         x = self.conv3(x, edge_index)
         x = self.transform3(x)
 
-        x, edge_index, edge_attr, batch_index, _ = self.pooling3(x,
+        x, edge_index, edge_attr, batch_index, _, _ = self.pooling3(x,
                                                                  edge_index,
                                                                  None, 
                                                                  batch_index)
@@ -61,6 +61,3 @@ class GNN(torch.nn.Module):
 
         return x
     
-
-    def loss(self, pred, label):
-        return f.nll_loss(pred, label)

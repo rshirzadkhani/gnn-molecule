@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/88c04b32f41a4bbbaf547f85c6da4c26/artifacts
+end_time: 1687880003555
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 88c04b32f41a4bbbaf547f85c6da4c26
+run_name: bedecked-panda-660
+run_uuid: 88c04b32f41a4bbbaf547f85c6da4c26
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687880001407
+status: 4
+tags: []
+user_id: rshirzad

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/42596b7eeb984e9b8be3fcd0f389936e/artifacts
+end_time: 1687878337630
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 42596b7eeb984e9b8be3fcd0f389936e
+run_name: monumental-lark-935
+run_uuid: 42596b7eeb984e9b8be3fcd0f389936e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687878334476
+status: 4
+tags: []
+user_id: rshirzad

@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/aaa202b15157471aae05c4f87bd7f4a2/artifacts
+end_time: 1687878517120
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: aaa202b15157471aae05c4f87bd7f4a2
+run_name: respected-tern-408
+run_uuid: aaa202b15157471aae05c4f87bd7f4a2
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687878516255
+status: 4
+tags: []
+user_id: rshirzad

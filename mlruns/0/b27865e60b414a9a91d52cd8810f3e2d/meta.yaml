@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/b27865e60b414a9a91d52cd8810f3e2d/artifacts
+end_time: 1687878741915
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: b27865e60b414a9a91d52cd8810f3e2d
+run_name: incongruous-dove-275
+run_uuid: b27865e60b414a9a91d52cd8810f3e2d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687878740910
+status: 4
+tags: []
+user_id: rshirzad

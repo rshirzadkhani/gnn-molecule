@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/78595337606148c58a14316b2e9d403c/artifacts
+end_time: 1687879757820
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 78595337606148c58a14316b2e9d403c
+run_name: bright-penguin-741
+run_uuid: 78595337606148c58a14316b2e9d403c
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687879752065
+status: 4
+tags: []
+user_id: rshirzad

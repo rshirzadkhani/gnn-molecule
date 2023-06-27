@@ -21,42 +21,50 @@ class HIVDataset(Dataset):
     @property
     def processed_file_names(self):
         self.data = pd.read_csv(self.raw_paths[0]).reset_index()
-        
         if self.test:
             return [f'data_test_{i}.pt' for i in list(self.data.index)]
         else:
-            return [f'data_{i}.pt' for i in [0]]#list(self.data.index)]
+            return [f'data_{i}.pt' for i in np.arange(52)]#list(self.data.index)]
 
     def download(self):
         pass
 
     def process(self):
         self.data = pd.read_csv(self.raw_paths[0])
-        print(self.raw_paths[0])
         i = 0
+        y1, y0, ids = 0, 0, 0
         for index, mol in tqdm(self.data.iterrows(), total=self.data.shape[0]):
-            # if i == 0:
+            if i <= 800:
                 mol_object = Chem.MolFromSmiles(mol["smiles"])
                 node_feats = self._get_node_features(mol_object)
                 edge_feats = self._get_edge_features(mol_object)
                 adjacency_matrix = self._get_adjacency_matrix(mol_object)
-                graph_labels = self._get_labels(self.data["HIV_active"])
+                graph_labels = self._get_labels(mol["HIV_active"])
 
                 data = Data(x = node_feats,
                             edge_index=adjacency_matrix,
                             edge_attr=edge_feats,
                             y=graph_labels,
                             smiles=mol["smiles"])
-                
+                # print(data)
                 if self.test:
                     torch.save(data, 
                         os.path.join(self.processed_dir, 
                                     f'data_test_{index}.pt'))
                 else:
-                    torch.save(data, 
-                        os.path.join(self.processed_dir, 
-                                    f'data_{index}.pt'))
-                # i += 1
+                    if data.y == 1 and y1 <= 24:
+                        y1 += 1
+                        torch.save(data, 
+                            os.path.join(self.processed_dir, 
+                                        f'data_{ids}.pt'))
+                        ids += 1
+                    elif data.y == 0 and y0 <= 24:
+                        y0 += 1
+                        torch.save(data, 
+                            os.path.join(self.processed_dir, 
+                                        f'data_{ids}.pt'))
+                        ids += 1
+                i += 1
 
     def _get_node_features(self, mol):
         all_node_feats = []
@@ -96,22 +104,25 @@ class HIVDataset(Dataset):
         return torch.tensor(coo, dtype=torch.long)
     
     def _get_labels(self, label):
-        label = np.asarray(label)
-        return torch.tensor(label, dtype=torch.int)
+        label = np.asarray([label])
+        return torch.tensor(label, dtype=torch.long)
 
 
     def len(self):
         return self.data.shape[0]
 
     def get(self, idx):
-        if self.test:
-            data = torch.load(os.path.join(self.processed_dir, 
-                                 f'data_test_{idx}.pt'))
-        else:
-            data = torch.load(os.path.join(self.processed_dir, 
-                                 f'data_{idx}.pt'))        
+        if idx <= 49:
+            if self.test:
+                data = torch.load(os.path.join(self.processed_dir, 
+                                    f'data_test_{idx}.pt'))
+            else:
+                data = torch.load(os.path.join(self.processed_dir, 
+                                    f'data_{idx}.pt'))        
         return data
     
 if __name__ == "__main__":
-    dataset = HIVDataset(root="./data", filename="HIV_train.csv", test=True)
+    dataset = HIVDataset(root="./data", filename="HIV_train.csv")
     # dataset = HIVDataset(root="./data", filename="HIV_test.csv", test=True)
+    for i in range(50):
+        print(dataset[i].y)

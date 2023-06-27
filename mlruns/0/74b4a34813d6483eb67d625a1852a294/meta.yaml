@@ -1,0 +1,15 @@
+artifact_uri: file:///home/rshirzad/gnn-molecule/mlruns/0/74b4a34813d6483eb67d625a1852a294/artifacts
+end_time: 1687878794089
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 74b4a34813d6483eb67d625a1852a294
+run_name: beautiful-colt-508
+run_uuid: 74b4a34813d6483eb67d625a1852a294
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1687878783855
+status: 3
+tags: []
+user_id: rshirzad
